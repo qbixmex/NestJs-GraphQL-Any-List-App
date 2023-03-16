@@ -47,8 +47,10 @@ export class ItemsResolver {
     return await this.itemsService.update(updateItemInput);
   }
 
-  // @Mutation(() => Item)
-  // async removeItem(@Args('id', { type: () => Int }) id: number): Promise<boolean> {
-  //   return await this.itemsService.remove(id);
-  // }
+  @Mutation(() => Item)
+  async removeItem(
+    @Args('id', { type: () => ID }) id: string
+  ): Promise<Item> {
+    return await this.itemsService.remove(id);
+  }
 }

@@ -41,8 +41,10 @@ export class ItemsService {
     return this.itemsRepository.save(item);
   }
 
-  // async remove(id: number): Promise<boolean> {
-  //   console.log({ id });
-  //   return true;
-  // }
+  async remove(id: string): Promise<Item> {
+    // TODO: soft delete, reference integrity
+    const item = await this.findOne(id);
+    await this.itemsRepository.remove(item);
+    return { ...item, id };
+  }
 }
