@@ -55,3 +55,9 @@ $ yarn test:cov # YARN
 __Check endpoints at:__
 
 ```http://locahost:3000/graphql```
+
+## Docker
+
+```
+$ docker-compose up -d
+```
