@@ -11,18 +11,30 @@ export class ItemsService {
 
   findOne(id: number): Item {
     return {
-      exampleField: id
+      id: 'sa858s8',
+      name: 'Rice',
+      quantity: 5,
+      quantityUnits: 'kg'
     };
   }
 
   create(createItemInput: CreateItemInput): Item {
-    console.log({ createItemInput });
-    return { exampleField: 1 };
+    return {
+      id: 'sa858s8',
+      name: 'Rice',
+      quantity: 5,
+      quantityUnits: 'kg'
+    };
   }
 
   update(id: number, updateItemInput: UpdateItemInput): Item {
-    console.log({ updateItemInput });
-    return { exampleField: 1 };
+    
+    return {
+      id: 'sa858s8',
+      name: 'Rice',
+      quantity: 5,
+      quantityUnits: 'kg'
+    };
   }
 
   remove(id: number): boolean {
