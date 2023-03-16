@@ -18,6 +18,10 @@ $ npm install
 $ yarn
 ```
 
+## Environment Variables
+
+__Rename ```.env.template``` to ```.env``` and put your local credentials__
+
 ## Running the app
 
 ```bash
