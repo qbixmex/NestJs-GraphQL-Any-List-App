@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Item } from './entities/item.entity';
-import { CreateItemInput } from './dto';
+import { CreateItemInput, UpdateItemInput } from './dto';
 
 @Injectable()
 export class ItemsService {
@@ -31,15 +31,15 @@ export class ItemsService {
     return await this.itemsRepository.save(newItem);
   }
 
-  // async update(id: number, updateItemInput: UpdateItemInput): Promise<Item> {
-    
-  //   return {
-  //     id: 'sa858s8',
-  //     name: 'Rice',
-  //     quantity: 5,
-  //     quantityUnits: 'kg'
-  //   };
-  // }
+  async update(updateItemInput: UpdateItemInput): Promise<Item> {
+    const { id } = updateItemInput;
+    const item = await this.itemsRepository.preload(updateItemInput);
+
+    if (!item)
+      throw new NotFoundException(`Item with id: (${id}) not found!`);
+
+    return this.itemsRepository.save(item);
+  }
 
   // async remove(id: number): Promise<boolean> {
   //   console.log({ id });
