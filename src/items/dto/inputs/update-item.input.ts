@@ -1,4 +1,4 @@
-import { CreateItemInput } from '.';
+import { CreateItemInput } from '..';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 import { IsNumber, Min } from 'class-validator';
 
