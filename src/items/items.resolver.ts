@@ -8,14 +8,22 @@ import { ItemsService } from './items.service';
 export class ItemsResolver {
   constructor(private readonly itemsService: ItemsService) {}
 
-  @Query(() => [Item], { name: 'items' })
+  @Query(() => [Item], {
+    name: 'getItems',
+    description: 'Get all items'
+  })
   async findAll(): Promise<Item[]> {
     return await this.itemsService.findAll();
   }
 
-  @Query(() => Item, { name: 'item' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.itemsService.findOne(id);
+  @Query(() => Item, {
+    name: 'getItem',
+    description: 'Get a single item with given id'
+  })
+  async findOne(
+    @Args('id', { type: () => String }) id: string
+  ): Promise<Item> {
+    return await this.itemsService.findOne(id);
   }
 
   @Mutation(() => Item, {
@@ -25,7 +33,7 @@ export class ItemsResolver {
   async createItem(
     @Args('createItemInput') createItemInput: CreateItemInput
   ): Promise<Item> {
-    return this.itemsService.create(createItemInput);
+    return await this.itemsService.create(createItemInput);
   }
 
   // @Mutation(() => Item, {

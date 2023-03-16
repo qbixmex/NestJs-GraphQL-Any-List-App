@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -14,16 +14,16 @@ export class ItemsService {
   ){}
 
   async findAll(): Promise<Item[]> {
-    return [];
+    // TODO: Paginate
+    // TODO: Filter
+    return await this.itemsRepository.find();
   }
 
-  async findOne(id: number): Promise<Item> {
-    return {
-      id: 'sa858s8',
-      name: 'Rice',
-      quantity: 5,
-      quantityUnits: 'kg'
-    };
+  async findOne(id: string): Promise<Item> {
+    const item = await this.itemsRepository.findOneBy({ id });
+    if (!item)
+      throw new NotFoundException(`Item with id: ${id} not found!`);
+    return item;
   }
 
   async create(createItemInput: CreateItemInput): Promise<Item> {
