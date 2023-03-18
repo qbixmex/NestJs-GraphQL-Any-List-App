@@ -21,8 +21,8 @@ class Item {
   @Field(() => String, { nullable: true })
   quantityUnits?: string;
 
-  // stores
-  // user
+  // Todo: stores
+  // Todo: user
 }
 
 export { Item };

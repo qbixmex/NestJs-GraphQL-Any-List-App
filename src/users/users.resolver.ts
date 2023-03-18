@@ -7,7 +7,10 @@ import { CreateUserInput, UpdateUserInput } from './dto';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Query(() => [User], { name: 'users' })
+  @Query(() => [User], {
+    name: 'users',
+    description: 'Get all users'
+  })
   async findAll(): Promise<User[]> {
     return await this.usersService.findAll();
   }
