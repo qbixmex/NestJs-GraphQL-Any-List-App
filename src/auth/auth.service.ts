@@ -1,26 +1,23 @@
 import { Injectable } from '@nestjs/common';
 
 import { AuthResponse, SignUpInput } from './dto';
-import { User } from 'src/users/entities';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
 
-  // TODO: constructor(){}
+  constructor(
+    private readonly usersService: UsersService,
+  ){}
 
   async signUp(signUpInput: SignUpInput): Promise<AuthResponse> {
-    console.log({signUpInput});
-    return {
-      token: 'jfysdifuyahsdfbnasdfaiuygt',
-      user: {
-        id: '163c10fb-22d0-4953-958f-3effc7eef18b',
-        fullName: 'John Doe',
-        email: 'john-doe@some-domain.com',
-        password: 'secret-123',
-        roles: ['admin'],
-        isActive: true,
-      },
-    };
+
+    const user = await this.usersService.create(signUpInput);
+
+    const token = 'ABC123TOKEN';
+
+    return { token, user };
+
   }
 
   async login(): Promise<any> {
