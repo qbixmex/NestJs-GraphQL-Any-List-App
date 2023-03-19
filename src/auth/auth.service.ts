@@ -47,7 +47,7 @@ export class AuthService {
     return { token, user };
   }
 
-  async revalidate(): Promise<any> {
+  revalidate(): AuthResponse {
     throw new Error('revalidate method not implemented!');
   }
 

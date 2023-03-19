@@ -16,7 +16,7 @@ class JwtStrategy extends PassportStrategy( Strategy ) {
 
   async validate(payload: any): Promise<User> {
     console.log({ payload });
-    throw new UnauthorizedException('Token not valid:(!');
+    throw new UnauthorizedException('Token not valid :(');
   }
 
 }

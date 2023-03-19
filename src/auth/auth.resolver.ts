@@ -1,7 +1,9 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 
 import { AuthResponse, SignUpInput, LoginInput } from './dto';
+import { JwtAuthGuard } from './guards';
 
 @Resolver()
 export class AuthResolver {
@@ -29,11 +31,15 @@ export class AuthResolver {
     return await this.authService.login(loginInput);
   }
 
-  @Query(() => String, {
+  @Query(() => AuthResponse, {
     name: 'revalidate',
     description: 'Check user token if still valid'
   })
-  async revalidateToken(): Promise<any> {
-    return this.authService.revalidate();
+  @UseGuards( JwtAuthGuard )
+  revalidateToken(
+    // @CurrentUser user: User
+  ): AuthResponse {
+    // return this.authService.revalidate();
+    throw new Error('Not implemented!');
   }
 }
