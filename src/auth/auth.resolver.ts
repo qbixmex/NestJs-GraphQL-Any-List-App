@@ -4,6 +4,8 @@ import { AuthService } from './auth.service';
 
 import { AuthResponse, SignUpInput, LoginInput } from './dto';
 import { JwtAuthGuard } from './guards';
+import { CurrentUser } from './decorators';
+import { User } from '../users/entities';
 
 @Resolver()
 export class AuthResolver {
@@ -36,10 +38,8 @@ export class AuthResolver {
     description: 'Check user token if still valid'
   })
   @UseGuards( JwtAuthGuard )
-  revalidateToken(
-    // @CurrentUser user: User
-  ): AuthResponse {
-    // return this.authService.revalidate();
-    throw new Error('Not implemented!');
+  revalidateToken( @CurrentUser() user: User ): AuthResponse {
+    console.log("revalidateToken user:", user);
+    return { user, token: 'ABC123' };
   }
 }
