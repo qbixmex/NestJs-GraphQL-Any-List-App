@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { User } from './entities';
 import { SignUpInput } from '../auth/dto';
-import { CreateUserInput, UpdateUserInput } from './dto';
+// import { CreateUserInput, UpdateUserInput } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -21,8 +21,12 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  async findOne(id: string): Promise<User> {
-    throw new Error(`findOne method not implemented`);
+  async findOneByEmail(email: string): Promise<User> {
+    try {
+      return await this.usersRepository.findOneByOrFail({ email });
+    } catch (error) {
+      throw new NotFoundException(`<${email}> not found!`);
+    }
   }
 
   async create(signUpInput: SignUpInput): Promise<User> {
@@ -42,13 +46,15 @@ export class UsersService {
   }
 
   private handleDBErrors( error: any ): never {
-    this.logger.error(error);
-
+    
     if (error.code === '23505') {
       throw new BadRequestException( error.detail.replace('Key ', '') );
     }
 
+    this.logger.error(error);
+
     throw new InternalServerErrorException('Please check log errors');
+
   }
 
 }

@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
-import { AuthResponse, SignUpInput } from './dto';
+import { AuthResponse, SignUpInput, LoginInput } from './dto';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -20,8 +21,20 @@ export class AuthService {
 
   }
 
-  async login(): Promise<any> {
-    throw new Error('login method not implemented!');
+  async login(loginInput: LoginInput): Promise<AuthResponse> {
+
+    const {  email, password } = loginInput;
+    
+    const user = await this.usersService.findOneByEmail(email);
+
+    if ( !bcrypt.compareSync(password, user.password) ) {
+      throw new BadRequestException('Email or Password does not match!');
+    }
+
+    // TODO
+    const token = 'ABC123TOKEN';
+
+    return { token, user };
   }
 
   async revalidate(): Promise<any> {

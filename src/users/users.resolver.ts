@@ -19,7 +19,7 @@ export class UsersResolver {
   async findOne(
     @Args('id', { type: () => ID }) id: string
   ): Promise<User> {
-    return this.usersService.findOne(id);
+    throw new Error('findOne not implemented yet!');
   }
 
   @Mutation(() => User)
