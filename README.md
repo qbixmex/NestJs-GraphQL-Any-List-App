@@ -62,6 +62,16 @@ __Check endpoints at:__
 
 ## Docker
 
-```
+```bash
 $ docker-compose up -d
+```
+
+## NODE
+
+```bash
+# Enter to NODE REPL
+$ node
+
+# Execute this line
+$ require('crypto').randomBytes(64).toString('hex');
 ```
