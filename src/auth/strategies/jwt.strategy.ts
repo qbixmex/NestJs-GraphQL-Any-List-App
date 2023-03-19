@@ -7,13 +7,11 @@ import { User } from '../../users/entities';
 @Injectable()
 class JwtStrategy extends PassportStrategy( Strategy ) {
 
-  constructor(
-    configService: ConfigService
-  ){
+  constructor( configService: ConfigService ){
     super({
       secretOrKey: configService.get('JWT_SECRET'),
-      JwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    })
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    });
   }
 
   async validate(payload: any): Promise<User> {
