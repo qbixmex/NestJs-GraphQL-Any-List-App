@@ -1,1 +1,1 @@
-export {};
+export { default as ValidRolesArgs } from './roles.arg';

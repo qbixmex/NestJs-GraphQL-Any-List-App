@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities';
-import { CreateUserInput, UpdateUserInput } from './dto';
+import { CreateUserInput, UpdateUserInput, ValidRolesArgs } from './dto';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -11,7 +11,12 @@ export class UsersResolver {
     name: 'users',
     description: 'Get all users'
   })
-  async findAll(): Promise<User[]> {
+  async findAll(
+    @Args() validRoles: ValidRolesArgs
+  ): Promise<User[]> {
+
+    console.log({ validRoles });
+
     return await this.usersService.findAll();
   }
 
