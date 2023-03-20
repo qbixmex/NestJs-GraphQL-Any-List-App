@@ -20,7 +20,16 @@ export class UsersService {
   ){}
 
   async findAll( roles: ValidRoles[] ): Promise<User[]> {
-    if ( roles.length === 0 ) return this.usersRepository.find();
+    if ( roles.length === 0 ) {
+      return this.usersRepository.find();
+
+      //? Alternative, is not necessary because we have
+      //? lazy property in User Entity
+      // return this.usersRepository.find({
+      //   relations: { lastUpdateBy: true }
+      // });
+
+    }
 
     //? if we have roles, example: ["admin", "superUser"]
     return await this.usersRepository
@@ -58,8 +67,16 @@ export class UsersService {
     }
   }
 
-  async block(id: string): Promise<User> {
-    throw new Error(`block method not implemented`);
+  async block(id: string, adminUser: User): Promise<User> {
+
+    const userToBlock = await this.findOneById(id);
+
+    //* Block User
+    userToBlock.isActive = false;
+    userToBlock.lastUpdateBy = adminUser;
+
+    return await this.usersRepository.save(userToBlock);
+
   }
 
   private handleDBErrors( error: any ): never {
