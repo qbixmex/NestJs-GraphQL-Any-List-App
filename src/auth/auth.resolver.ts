@@ -6,6 +6,7 @@ import { AuthResponse, SignUpInput, LoginInput } from './dto';
 import { JwtAuthGuard } from './guards';
 import { CurrentUser } from './decorators';
 import { User } from '../users/entities';
+import { ValidRoles } from './enums';
 
 @Resolver()
 export class AuthResolver {
@@ -38,8 +39,12 @@ export class AuthResolver {
     description: 'Check user token if still valid'
   })
   @UseGuards( JwtAuthGuard )
-  revalidateToken( @CurrentUser() user: User ): AuthResponse {
-    console.log("revalidateToken user:", user);
-    return { user, token: 'ABC123' };
+  revalidateToken(
+    //? Adding a role
+    //? @CurrentUser([ ValidRoles.admin, ValidRoles.superUser ]) user: User
+    @CurrentUser() user: User
+  ): AuthResponse {
+    return this.authService.revalidate(user);
   }
+
 }

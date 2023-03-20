@@ -1,10 +1,14 @@
-import { createParamDecorator, ExecutionContext, InternalServerErrorException } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext, ForbiddenException, InternalServerErrorException } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { ValidRoles } from '../enums';
+import { User } from '../../users/entities';
 
 const CurrentUser = createParamDecorator(
-  (roles = [], context: ExecutionContext) => {
+
+  (roles: ValidRoles[] = [], context: ExecutionContext) => {
+
     const ctx = GqlExecutionContext.create(context);
-    const user = ctx.getContext().req.user;
+    const user: User = ctx.getContext().req.user;
 
     if (!user) {
       let message: string;
@@ -13,8 +17,20 @@ const CurrentUser = createParamDecorator(
       throw new InternalServerErrorException(message);
     }
 
-    return user;
+    if ( roles.length === 0 ) return user;
+
+    for (const role of user.roles) {
+      if ( roles.includes( role as ValidRoles ) ) {
+        return user;
+      }
+    }
+
+    throw new ForbiddenException(
+      `User ${ user.fullName } need a valid role: [${ roles.join(', ') }]`
+    );
+
   }
-);
+
+  );
 
 export default CurrentUser;
