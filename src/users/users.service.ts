@@ -22,7 +22,7 @@ export class UsersService {
   async findAll( roles: ValidRoles[] ): Promise<User[]> {
     if ( roles.length === 0 ) return this.usersRepository.find();
 
-    //? if we have roles ["admin", "superUser"]
+    //? if we have roles, example: ["admin", "superUser"]
     return await this.usersRepository
       .createQueryBuilder()
       .andWhere('ARRAY[roles] && ARRAY[:...roles]')

@@ -1,9 +1,15 @@
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+
 import { UsersService } from './users.service';
+import { ValidRolesArgs } from './dto';
+import { JwtAuthGuard } from '../auth/guards';
 import { User } from './entities';
-import { CreateUserInput, UpdateUserInput, ValidRolesArgs } from './dto';
+import { CurrentUser } from '../auth/decorators';
+import { ValidRoles } from '../auth/enums';
 
 @Resolver(() => User)
+@UseGuards( JwtAuthGuard )
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
@@ -12,8 +18,14 @@ export class UsersResolver {
     description: 'Get all users'
   })
   async findAll(
-    @Args() validRoles: ValidRolesArgs
+    @Args() validRoles: ValidRolesArgs,
+    @CurrentUser([
+      ValidRoles.admin,
+      ValidRoles.superUser
+    ]) currentUser: User
   ): Promise<User[]> {
+    console.log({ currentUser });
+
     return await this.usersService.findAll(validRoles.roles);
   }
 
