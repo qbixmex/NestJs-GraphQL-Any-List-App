@@ -1,7 +1,7 @@
 import { ParseUUIDPipe } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 
-import { Item } from './entities/item.entity';
+import { Item } from './entities';
 import { CreateItemInput, UpdateItemInput } from './dto';
 import { ItemsService } from './items.service';
 
