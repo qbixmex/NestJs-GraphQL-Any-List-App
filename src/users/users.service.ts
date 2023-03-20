@@ -4,8 +4,10 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { User } from './entities';
+import { ValidRoles } from '../auth/enums';
 import { SignUpInput } from '../auth/dto';
 // import { CreateUserInput, UpdateUserInput } from './dto';
+
 
 @Injectable()
 export class UsersService {
@@ -17,8 +19,15 @@ export class UsersService {
     private readonly usersRepository: Repository<User>
   ){}
 
-  async findAll(): Promise<User[]> {
-    return await this.usersRepository.find();
+  async findAll( roles: ValidRoles[] ): Promise<User[]> {
+    if ( roles.length === 0 ) return this.usersRepository.find();
+
+    //? if we have roles ["admin", "superUser"]
+    return await this.usersRepository
+      .createQueryBuilder()
+      .andWhere('ARRAY[roles] && ARRAY[:...roles]')
+      .setParameter('roles', roles)
+      .getMany();
   }
 
   async findOneByEmail(email: string): Promise<User> {

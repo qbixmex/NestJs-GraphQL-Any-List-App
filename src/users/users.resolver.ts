@@ -14,10 +14,7 @@ export class UsersResolver {
   async findAll(
     @Args() validRoles: ValidRolesArgs
   ): Promise<User[]> {
-
-    console.log(validRoles.roles);
-
-    return await this.usersService.findAll();
+    return await this.usersService.findAll(validRoles.roles);
   }
 
   @Query(() => User, { name: 'user' })
