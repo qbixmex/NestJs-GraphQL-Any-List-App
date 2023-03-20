@@ -1,14 +1,13 @@
 import { ArgsType, Field } from "@nestjs/graphql";
 import { IsArray } from "class-validator";
-// import { ValidRoles } from "../../../auth/enums";
+import { ValidRoles } from "../../../auth/enums";
 
 @ArgsType()
 class ValidRolesArgs {
 
-  @Field(() => [String], { nullable: true })
+  @Field(() => [ValidRoles], { nullable: true })
   @IsArray()
-  roles: string[] = [];
-  // roles: ValidRoles[] = [];
+  roles: ValidRoles[] = [];
 
 }
 

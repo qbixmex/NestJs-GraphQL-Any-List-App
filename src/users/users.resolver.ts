@@ -15,7 +15,7 @@ export class UsersResolver {
     @Args() validRoles: ValidRolesArgs
   ): Promise<User[]> {
 
-    console.log({ validRoles });
+    console.log(validRoles.roles);
 
     return await this.usersService.findAll();
   }
