@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { ParseUUIDPipe, UseGuards } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { ValidRolesArgs } from './dto';
+import { ValidRolesArgs, UpdateUserInput } from './dto';
 import { JwtAuthGuard } from '../auth/guards';
 import { User } from './entities';
 import { CurrentUser } from '../auth/decorators';
@@ -32,6 +32,21 @@ export class UsersResolver {
     @CurrentUser([ ValidRoles.admin ]) currentUser: User
   ): Promise<User> {
     return await this.usersService.findOneById(id);
+  }
+
+  @Mutation(() => User, {
+    name: 'updateUser',
+    description: 'Update an existing user'
+  })
+  async updateUser(
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+    @CurrentUser([ ValidRoles.admin ]) user: User
+  ): Promise<User> {
+    return await this.usersService.update(
+      updateUserInput.id,
+      updateUserInput,
+      user
+    );
   }
 
   @Mutation(() => User, { name: 'blockUser' })

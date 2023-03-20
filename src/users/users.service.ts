@@ -6,8 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { User } from './entities';
 import { ValidRoles } from '../auth/enums';
 import { SignUpInput } from '../auth/dto';
-// import { CreateUserInput, UpdateUserInput } from './dto';
-
+import { UpdateUserInput } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -22,13 +21,6 @@ export class UsersService {
   async findAll( roles: ValidRoles[] ): Promise<User[]> {
     if ( roles.length === 0 ) {
       return this.usersRepository.find();
-
-      //? Alternative, is not necessary because we have
-      //? lazy property in User Entity
-      // return this.usersRepository.find({
-      //   relations: { lastUpdateBy: true }
-      // });
-
     }
 
     //? if we have roles, example: ["admin", "superUser"]
@@ -67,6 +59,29 @@ export class UsersService {
     }
   }
 
+  async update(
+    id: string,
+    updateUserInput: UpdateUserInput,
+    updateBy: User
+  ): Promise<User> {
+    try {
+      const user = await this.usersRepository.preload({
+        ...updateUserInput,
+        id
+      });
+
+      //* Add who is updating
+      user.lastUpdateBy = updateBy;
+
+      //* Remove Password
+      delete user.password;
+
+      return await this.usersRepository.save(user);
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
+  }
+
   async block(id: string, adminUser: User): Promise<User> {
 
     const userToBlock = await this.findOneById(id);
@@ -83,6 +98,10 @@ export class UsersService {
     
     if (error.code === '23505') {
       throw new BadRequestException( error.detail.replace('Key ', '') );
+    }
+
+    if (error.code === 'error-001') {
+      throw new BadRequestException( error.detail );
     }
 
     this.logger.error(error);
