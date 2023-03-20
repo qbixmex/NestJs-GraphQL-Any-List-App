@@ -22,7 +22,7 @@ import { JwtStrategy } from './strategies';
       inject: [ ConfigService ],
       useFactory: ( configService: ConfigService ) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '24h' }
+        signOptions: { expiresIn: '1h' }
       })
     }),
 
@@ -30,6 +30,6 @@ import { JwtStrategy } from './strategies';
 
   ],
 
-  // exports: [ JwtStrategy, PassportModule, JwtModule ],
+  exports: [ JwtStrategy, PassportModule, JwtModule ],
 })
 export class AuthModule {}
