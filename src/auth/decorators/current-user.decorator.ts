@@ -20,6 +20,7 @@ const CurrentUser = createParamDecorator(
     if ( roles.length === 0 ) return user;
 
     for (const role of user.roles) {
+      // TODO: Delete ValidRoles casting
       if ( roles.includes( role as ValidRoles ) ) {
         return user;
       }
