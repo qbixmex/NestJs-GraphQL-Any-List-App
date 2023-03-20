@@ -30,19 +30,19 @@ export class UsersService {
       .getMany();
   }
 
+  async findOneById(id: string): Promise<User> {
+    try {
+      return await this.usersRepository.findOneByOrFail({ id });
+    } catch (error) {
+      throw new NotFoundException(`User with id: [${id}] not found!`);
+    }
+  }
+
   async findOneByEmail(email: string): Promise<User> {
     try {
       return await this.usersRepository.findOneByOrFail({ email });
     } catch (error) {
       throw new NotFoundException(`<${email}> not found!`);
-    }
-  }
-
-  async findOneById(id: string): Promise<User> {
-    try {
-      return await this.usersRepository.findOneByOrFail({ id });
-    } catch (error) {
-      throw new NotFoundException(`<${id}> not found!`);
     }
   }
 

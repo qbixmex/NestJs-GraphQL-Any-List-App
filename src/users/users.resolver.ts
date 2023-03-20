@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { ParseUUIDPipe, UseGuards } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { ValidRolesArgs } from './dto';
@@ -19,10 +19,7 @@ export class UsersResolver {
   })
   async findAll(
     @Args() validRoles: ValidRolesArgs,
-    @CurrentUser([
-      ValidRoles.admin,
-      ValidRoles.superUser
-    ]) currentUser: User
+    @CurrentUser([ ValidRoles.admin, ValidRoles.superUser ]) currentUser: User
   ): Promise<User[]> {
     console.log({ currentUser });
 
@@ -31,9 +28,10 @@ export class UsersResolver {
 
   @Query(() => User, { name: 'user' })
   async findOne(
-    @Args('id', { type: () => ID }) id: string
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
+    @CurrentUser([ ValidRoles.admin, ValidRoles.superUser ]) currentUser: User
   ): Promise<User> {
-    throw new Error('findOne not implemented yet!');
+    return await this.usersService.findOneById(id);
   }
 
   @Mutation(() => User)
