@@ -66,7 +66,9 @@ __Check endpoints at:__
 $ docker-compose up -d
 ```
 
-## NODE
+## Node
+
+__You can generate your JWT_SECRET with NODE__
 
 ```bash
 # Enter to NODE REPL
@@ -74,4 +76,40 @@ $ node
 
 # Execute this line
 $ require('crypto').randomBytes(64).toString('hex');
+```
+
+__Copy generated secret and paste it into environment variables__
+
+```.env```
+
+```
+JWT_SECRET="66d352a951c56a107e6efd14b7af3..."
+```
+
+## Seed Data
+
+__You must to run on GraphQl the following endpoint:__
+
+```graphql
+mutation ExecuteSeed {
+  executeSeed
+}
+```
+
+__NOTE: This only runs on development mode__
+
+__Make sure you have STATE environment variable pointed to dev__
+
+```.env```
+
+```
+STATE=dev
+```
+
+__You must login again in order to generate a new token and put it on Authorization Headers__
+
+**Example:**
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsIn...
 ```
