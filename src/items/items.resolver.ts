@@ -17,8 +17,10 @@ export class ItemsResolver {
     name: 'getItems',
     description: 'Get all items'
   })
-  async findAll(): Promise<Item[]> {
-    return await this.itemsService.findAll();
+  async findAll(
+    @CurrentUser() user: User
+  ): Promise<Item[]> {
+    return await this.itemsService.findAll(user);
   }
 
   @Query(() => Item, {
@@ -26,7 +28,7 @@ export class ItemsResolver {
     description: 'Get a single item with given id'
   })
   async findOne(
-    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,    
   ): Promise<Item> {
     return await this.itemsService.findOne(id);
   }

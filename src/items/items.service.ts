@@ -14,10 +14,16 @@ export class ItemsService {
     private readonly itemsRepository: Repository<Item>,
   ){}
 
-  async findAll(): Promise<Item[]> {
+  async findAll(user: User): Promise<Item[]> {
     // TODO: Paginate
     // TODO: Filter
-    return await this.itemsRepository.find();
+    return await this.itemsRepository.find({
+      where: {
+        user: {
+          id: user.id
+        }
+      }
+    });
   }
 
   async findOne(id: string): Promise<Item> {
