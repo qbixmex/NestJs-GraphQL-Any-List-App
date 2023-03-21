@@ -14,22 +14,28 @@ export class ItemsService {
     private readonly itemsRepository: Repository<Item>,
   ){}
 
-  async findAll(user: User): Promise<Item[]> {
+  async findAll(userId: string): Promise<Item[]> {
     // TODO: Paginate
     // TODO: Filter
     return await this.itemsRepository.find({
       where: {
         user: {
-          id: user.id
+          id: userId
         }
       }
     });
   }
 
-  async findOne(id: string): Promise<Item> {
-    const item = await this.itemsRepository.findOneBy({ id });
-    if (!item)
-      throw new NotFoundException(`Item with id: ${id} not found!`);
+  async findOne( itemId: string, userId: string ): Promise<Item> {
+    const item = await this.itemsRepository.findOneBy({
+      id: itemId,
+      user: {
+        id: userId
+      }
+    });
+    if (!item) {
+      throw new NotFoundException(`Item with id: [${itemId}] not found!`);
+    }
     return item;
   }
 
@@ -45,15 +51,16 @@ export class ItemsService {
     const { id } = updateItemInput;
     const item = await this.itemsRepository.preload(updateItemInput);
 
-    if (!item)
+    if (!item) {
       throw new NotFoundException(`Item with id: (${id}) not found!`);
+    }
 
     return this.itemsRepository.save(item);
   }
 
-  async remove(id: string): Promise<Item> {
+  async remove(id: string, userId: string): Promise<Item> {
     // TODO: soft delete, reference integrity
-    const item = await this.findOne(id);
+    const item = await this.findOne(id, userId);
     await this.itemsRepository.remove(item);
     return { ...item, id };
   }

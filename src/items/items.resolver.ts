@@ -20,7 +20,8 @@ export class ItemsResolver {
   async findAll(
     @CurrentUser() user: User
   ): Promise<Item[]> {
-    return await this.itemsService.findAll(user);
+    const userId = user.id;
+    return await this.itemsService.findAll(userId);
   }
 
   @Query(() => Item, {
@@ -28,9 +29,11 @@ export class ItemsResolver {
     description: 'Get a single item with given id'
   })
   async findOne(
-    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,    
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
+    @CurrentUser() user: User
   ): Promise<Item> {
-    return await this.itemsService.findOne(id);
+    const userId = user.id;
+    return await this.itemsService.findOne(id, userId);
   }
 
   @Mutation(() => Item, {
@@ -57,8 +60,10 @@ export class ItemsResolver {
 
   @Mutation(() => Item)
   async removeItem(
-    @Args('id', { type: () => ID }) id: string
+    @Args('id', { type: () => ID }) id: string,
+    @CurrentUser() user: User
   ): Promise<Item> {
-    return await this.itemsService.remove(id);
+    const userId = user.id;
+    return await this.itemsService.remove(id, userId);
   }
 }

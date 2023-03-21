@@ -14,10 +14,6 @@ class Item {
   @Field(() => String)
   name: string;
 
-  // @Column()
-  // @Field(() => Float)
-  // quantity: number;
-
   @Column({ nullable: true })
   @Field(() => String, { nullable: true })
   quantityUnits?: string;
@@ -28,7 +24,10 @@ class Item {
   @ManyToOne(
     () => User,
     (user) => user.items,
-    { nullable: false }
+    {
+      nullable: false,
+      lazy: true,
+    }
   )
   @Index('userId')
   @Field(() => User)
