@@ -29,12 +29,12 @@ export class ItemsService {
       .skip(offset)
       .where(`"userId" = :userId`, { userId });
 
-      if (search) {
-        queryBuilder.andWhere(
-          'LOWER(name) like :name',
-          { name: `%${ search.toLowerCase() }%` }
-        );
-      }
+    if (search) {
+      queryBuilder.andWhere(
+        'LOWER(name) like :name',
+        { name: `%${ search.toLowerCase() }%` }
+      );
+    }
 
     return queryBuilder.getMany();
   }

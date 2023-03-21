@@ -7,6 +7,7 @@ import { User } from './entities';
 import { ValidRoles } from '../auth/enums';
 import { SignUpInput } from '../auth/dto';
 import { UpdateUserInput } from './dto';
+import { PaginationArgs, SearchArgs } from '../common/dto';
 
 @Injectable()
 export class UsersService {
@@ -18,17 +19,34 @@ export class UsersService {
     private readonly usersRepository: Repository<User>
   ){}
 
-  async findAll( roles: ValidRoles[] ): Promise<User[]> {
-    if ( roles.length === 0 ) {
+  async findAll(
+    roles: ValidRoles[],
+    paginationArgs: PaginationArgs,
+    searchArgs: SearchArgs,
+  ): Promise<User[]> {
+
+    const { limit, offset } = paginationArgs;
+    const { search } = searchArgs;
+
+    if ( roles.length === 0 && !limit && !offset && !search ) {
       return this.usersRepository.find();
     }
 
-    //? if we have roles, example: ["admin", "superUser"]
-    return await this.usersRepository
-      .createQueryBuilder()
+    const queryBuilder = await this.usersRepository.createQueryBuilder()
+      .take(limit)
+      .skip(offset)
       .andWhere('ARRAY[roles] && ARRAY[:...roles]')
-      .setParameter('roles', roles)
-      .getMany();
+      .setParameter('roles', roles);
+
+    if (search) {
+      queryBuilder.andWhere(
+        'LOWER("fullName") like :fullName',        
+        { fullName: `%${ search.toLowerCase() }%` }
+      );
+    }
+
+    return queryBuilder.getMany();
+
   }
 
   async findOneById(id: string): Promise<User> {
