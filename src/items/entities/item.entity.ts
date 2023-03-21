@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from '../../users/entities';
 
 @Entity({ name: 'items' })
@@ -25,7 +25,12 @@ class Item {
   // Todo: stores
 
   //* User Relationship
-  @ManyToOne( () => User, (user) => user.items )
+  @ManyToOne(
+    () => User,
+    (user) => user.items,
+    { nullable: false }
+  )
+  @Index('userId')
   @Field(() => User)
   user: User;
 }

@@ -1,11 +1,15 @@
-import { ParseUUIDPipe } from '@nestjs/common';
+import { ParseUUIDPipe, UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 
 import { Item } from './entities';
 import { CreateItemInput, UpdateItemInput } from './dto';
+import { JwtAuthGuard } from '../auth/guards';
 import { ItemsService } from './items.service';
+import { CurrentUser } from '../auth/decorators';
+import { User } from '../users/entities';
 
 @Resolver(() => Item)
+@UseGuards( JwtAuthGuard )
 export class ItemsResolver {
   constructor(private readonly itemsService: ItemsService) {}
 
@@ -32,9 +36,11 @@ export class ItemsResolver {
     description: 'Create a new item'
   })
   async createItem(
-    @Args('createItemInput') createItemInput: CreateItemInput
+    @Args('createItemInput') createItemInput: CreateItemInput,
+    @CurrentUser() user: User
   ): Promise<Item> {
-    return await this.itemsService.create(createItemInput);
+    console.log(user);
+    return await this.itemsService.create(createItemInput, user);
   }
 
   @Mutation(() => Item, {
