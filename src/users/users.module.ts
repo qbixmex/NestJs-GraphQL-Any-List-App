@@ -5,6 +5,7 @@ import { User } from './entities';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
 import { ItemsModule } from '../items/items.module';
+import { ListsModule } from '../lists/lists.module';
 
 @Module({
   providers: [
@@ -14,6 +15,7 @@ import { ItemsModule } from '../items/items.module';
   imports: [
     TypeOrmModule.forFeature([ User ]),
     ItemsModule,
+    ListsModule,
   ],
   exports: [
     TypeOrmModule,

@@ -23,7 +23,6 @@ export class ItemsResolver {
     @Args() paginationArgs: PaginationArgs,
     @Args() searchArgs: SearchArgs,
   ): Promise<Item[]> {
-    console.log({ paginationArgs, searchArgs });
     return await this.itemsService.findAll(user.id, paginationArgs, searchArgs);
   }
 
@@ -60,9 +59,12 @@ export class ItemsResolver {
     return await this.itemsService.update(updateItemInput, user.id);
   }
 
-  @Mutation(() => Item)
+  @Mutation(() => Item, {
+    name: 'removeItem',
+    description: 'Remove item from given id'
+  })
   async removeItem(
-    @Args('id', { type: () => ID }) id: string,
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
     @CurrentUser() user: User
   ): Promise<Item> {
     return await this.itemsService.remove(id, user.id);
