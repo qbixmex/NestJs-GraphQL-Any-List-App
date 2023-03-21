@@ -32,8 +32,7 @@ export class ItemsResolver {
     @Args('id', { type: () => ID }, ParseUUIDPipe) id: string,
     @CurrentUser() user: User
   ): Promise<Item> {
-    const userId = user.id;
-    return await this.itemsService.findOne(id, userId);
+    return await this.itemsService.findOne(id, user.id);
   }
 
   @Mutation(() => Item, {
@@ -44,7 +43,6 @@ export class ItemsResolver {
     @Args('createItemInput') createItemInput: CreateItemInput,
     @CurrentUser() user: User
   ): Promise<Item> {
-    console.log(user);
     return await this.itemsService.create(createItemInput, user);
   }
 
@@ -53,9 +51,10 @@ export class ItemsResolver {
     description: 'Update item from given id'
   })
   async updateItem(
-    @Args('updateItemInput') updateItemInput: UpdateItemInput
+    @Args('updateItemInput') updateItemInput: UpdateItemInput,
+    @CurrentUser() user: User
   ): Promise<Item> {
-    return await this.itemsService.update(updateItemInput);
+    return await this.itemsService.update(updateItemInput, user.id);
   }
 
   @Mutation(() => Item)
@@ -63,7 +62,6 @@ export class ItemsResolver {
     @Args('id', { type: () => ID }) id: string,
     @CurrentUser() user: User
   ): Promise<Item> {
-    const userId = user.id;
-    return await this.itemsService.remove(id, userId);
+    return await this.itemsService.remove(id, user.id);
   }
 }
