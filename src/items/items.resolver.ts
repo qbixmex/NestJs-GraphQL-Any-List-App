@@ -5,6 +5,7 @@ import { Item } from './entities';
 import { CreateItemInput, UpdateItemInput } from './dto';
 import { JwtAuthGuard } from '../auth/guards';
 import { ItemsService } from './items.service';
+import { PaginationArgs } from '../common/dto';
 import { CurrentUser } from '../auth/decorators';
 import { User } from '../users/entities';
 
@@ -18,8 +19,10 @@ export class ItemsResolver {
     description: 'Get all items'
   })
   async findAll(
-    @CurrentUser() user: User
+    @CurrentUser() user: User,
+    @Args() paginationArgs: PaginationArgs,
   ): Promise<Item[]> {
+    console.log({ paginationArgs });
     const userId = user.id;
     return await this.itemsService.findAll(userId);
   }

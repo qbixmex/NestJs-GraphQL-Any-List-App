@@ -1,6 +1,6 @@
 {
   "name": "any-list",
-  "version": "4.5.0",
+  "version": "5.0.0",
   "description": "NestJs with GraphQL Any List",
   "author": "Daniel González Briseño",
   "private": true,
