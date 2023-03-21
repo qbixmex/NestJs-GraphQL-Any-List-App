@@ -1,5 +1,5 @@
 import { UseGuards, ParseUUIDPipe } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { JwtAuthGuard } from '../auth/guards';
 
 import { List } from './entities';
@@ -50,7 +50,7 @@ export class ListsResolver {
   async createList(
     @Args('createListInput') createListInput: CreateListInput,
     @CurrentUser() user: User
-  ) {
+  ): Promise<List> {
     return await this.listsService.create(createListInput, user);
   }
 
@@ -62,9 +62,7 @@ export class ListsResolver {
     @Args('updateListInput') updateListInput: UpdateListInput,
     @CurrentUser() user: User
   ): Promise<List> {
-    return this.listsService.update(
-      updateListInput, user.id
-    );
+    return this.listsService.update(updateListInput, user.id);
   }
 
   @Mutation(() => List, {

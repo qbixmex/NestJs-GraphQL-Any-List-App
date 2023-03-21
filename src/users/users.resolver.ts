@@ -71,6 +71,8 @@ export class UsersResolver {
     return await this.usersService.block(id, user);
   }
 
+  //* Items Resolvers
+
   @ResolveField(() => Int, {
     name: 'itemsCount',
     description: 'Get all items from authenticated user'
@@ -80,17 +82,6 @@ export class UsersResolver {
     @Parent() user: User
   ): Promise<number> {
     return await this.itemsService.itemsCountByUser(user.id);
-  }
-
-  @ResolveField(() => Int, {
-    name: 'listsCount',
-    description: 'Get all lists from authenticated user'
-  })
-  async listCount(
-    @CurrentUser([ ValidRoles.admin ]) adminUser: User,
-    @Parent() user: User
-  ): Promise<number> {
-    return await this.listsService.listsCountByUser(user.id);
   }
 
   @ResolveField(() => [Item], {
@@ -104,6 +95,19 @@ export class UsersResolver {
     @Args() searchArgs: SearchArgs,
   ): Promise<Item[]> {
     return await this.itemsService.findAll(user.id, paginationArgs, searchArgs);
+  }
+
+  //* Lists Resolvers
+
+  @ResolveField(() => Int, {
+    name: 'listsCount',
+    description: 'Get all lists from authenticated user'
+  })
+  async listCount(
+    @CurrentUser([ ValidRoles.admin ]) adminUser: User,
+    @Parent() user: User
+  ): Promise<number> {
+    return await this.listsService.listsCountByUser(user.id);
   }
 
   @ResolveField(() => [Item], {

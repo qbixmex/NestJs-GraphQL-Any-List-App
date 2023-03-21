@@ -77,6 +77,7 @@ export class ListsService {
     }
 
     return this.listsRepository.save(list);
+
   }
 
   async remove(id: string, userId: string): Promise<List> {

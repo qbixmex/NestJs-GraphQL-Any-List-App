@@ -5,6 +5,7 @@ import { User } from '../../users/entities';
 @Entity({ name: 'lists' })
 @ObjectType()
 class List {
+
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
@@ -13,11 +14,10 @@ class List {
   @Field(() => String)
   name: string;
 
-  // Relationship, index(userId-list-index)
   @ManyToOne(
     () => User,
     (user) => user.lists,
-    { nullable: false, lazy: true, }
+    { nullable: false, lazy: true }
   )
   @Index('userId-list')
   @Field(() => User)

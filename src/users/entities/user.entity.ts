@@ -48,11 +48,10 @@ class User {
   lastUpdateBy?: User;
 
   @OneToMany(() => Item, (item) => item.user, { lazy: true })
-  // @Field(() => [Item])
   items: Item[];
 
   @OneToMany(() => List, (list) => list.user, { lazy: true })
-  lists: List;
+  lists: List[];
 
 }
 
