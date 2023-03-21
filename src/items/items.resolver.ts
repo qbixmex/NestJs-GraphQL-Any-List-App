@@ -22,9 +22,8 @@ export class ItemsResolver {
     @CurrentUser() user: User,
     @Args() paginationArgs: PaginationArgs,
   ): Promise<Item[]> {
-    console.log({ paginationArgs });
     const userId = user.id;
-    return await this.itemsService.findAll(userId);
+    return await this.itemsService.findAll(userId, paginationArgs);
   }
 
   @Query(() => Item, {
