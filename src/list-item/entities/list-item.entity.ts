@@ -1,8 +1,8 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-// import { List } from '../../lists/entities';
-// import { Item } from '../../items/entities';
+import { List } from '../../lists/entities';
+import { Item } from '../../items/entities';
 
 @Entity({ name: 'listItems' })
 @ObjectType()
@@ -22,11 +22,20 @@ class ListItem {
 
   //* Relationships
 
-  // TODO
-  // list: List;
+  @ManyToOne(
+    () => List,
+    (list) => list.listItem,
+    { lazy: true }
+  )
+  list: List;
 
-  // TODO
-  // item: Item;
+  @ManyToOne(
+    () => Item,
+    (item) => item.listItem,
+    { lazy: true }
+  )
+  @Field(() => Item)
+  item: Item;
 
 }
 
