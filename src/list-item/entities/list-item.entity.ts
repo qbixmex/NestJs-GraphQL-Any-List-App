@@ -1,10 +1,11 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 import { List } from '../../lists/entities';
 import { Item } from '../../items/entities';
 
 @Entity({ name: 'listItems' })
+@Unique('listItem-item', [ 'list', 'item' ])
 @ObjectType()
 class ListItem {
 
