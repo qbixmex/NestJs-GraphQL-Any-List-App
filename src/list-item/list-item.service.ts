@@ -1,25 +1,48 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { CreateListItemInput, UpdateListItemInput } from './dto';
+import { ListItem } from './entities';
 
 @Injectable()
 export class ListItemService {
-  create(createListItemInput: CreateListItemInput) {
-    return 'This action adds a new listItem';
+
+
+  constructor(
+    @InjectRepository(ListItem)
+    private readonly listItemRepository: Repository<ListItem>
+  ) {}
+
+  async create(createListItemInput: CreateListItemInput): Promise<ListItem> {
+
+    const { itemId, listId, ...rest } = createListItemInput;
+
+    const newListItem = this.listItemRepository.create({
+      ...rest,
+      item: { id: itemId },
+      list: { id: listId },
+    });
+
+    return this.listItemRepository.save(newListItem);
+
   }
 
-  findAll() {
-    return `This action returns all listItem`;
+  async findAll(): Promise<ListItem[]> {
+    throw new Error('Find All not implemented yet!');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} listItem`;
+  async findOne(id: string): Promise<ListItem> {
+    throw new Error('Find One not implemented yet!');
   }
 
-  update(id: number, updateListItemInput: UpdateListItemInput) {
-    return `This action updates a #${id} listItem`;
+  async update(
+    updateListItemInput: UpdateListItemInput
+  ): Promise<ListItem> {
+    throw new Error('Update not implemented yet!');
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} listItem`;
+  async remove(id: string): Promise<ListItem> {
+    throw new Error('Delete not implemented yet!');
   }
 }
