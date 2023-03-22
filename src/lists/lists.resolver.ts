@@ -81,8 +81,21 @@ export class ListsResolver {
     return await this.listsService.remove(id, user.id);
   }
 
-  @ResolveField(() => [ListItem], { name: 'items' })
-  async getListItems( @Parent() list: List, ): Promise<ListItem[]> {
-    return await this.listItemService.findAll();
+  @ResolveField(() => Number, {
+    name: 'totalItems',
+    description: 'Count list items by list'
+  })
+  async countListItemsByList(@Parent() list: List): Promise<number> {
+    return await this.listItemService.listItemsCountByList(list.id);
   }
+
+  @ResolveField(() => [ListItem], { name: 'items' })
+  async getListItems(
+    @Parent() list: List,
+    @Args() paginationArgs: PaginationArgs,
+    @Args() searchArgs: SearchArgs,
+  ): Promise<ListItem[]> {
+    return await this.listItemService.findAll( list, paginationArgs, searchArgs );
+  }
+
 }

@@ -28,6 +28,7 @@ class ListItem {
     (list) => list.listItem,
     { lazy: true }
   )
+  @Field(() => List)
   list: List;
 
   @ManyToOne(

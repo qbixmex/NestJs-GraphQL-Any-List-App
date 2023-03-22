@@ -16,7 +16,8 @@ export class ListItemResolver {
 
   @Query(() => [ListItem], { name: 'listItems' })
   async findAll(): Promise<ListItem[]> {
-    return await this.listItemService.findAll();
+    // return await this.listItemService.findAll();
+    throw new Error(`Not implemented yet!`);
   }
 
   @Query(() => ListItem, { name: 'listItem' })
