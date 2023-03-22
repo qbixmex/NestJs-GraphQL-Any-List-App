@@ -30,7 +30,7 @@ class List {
     (listItem) => listItem.list,
     { lazy: true }
   )
-  @Field(() => [ListItem])
+  // @Field(() => [ListItem])
   listItem: ListItem[];
 }
 

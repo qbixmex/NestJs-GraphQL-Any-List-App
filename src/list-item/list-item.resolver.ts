@@ -14,7 +14,7 @@ export class ListItemResolver {
 
   constructor(private readonly listItemService: ListItemService) {}
 
-  @Query(() => [ListItem], { name: 'listItem' })
+  @Query(() => [ListItem], { name: 'listItems' })
   async findAll(): Promise<ListItem[]> {
     return await this.listItemService.findAll();
   }

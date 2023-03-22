@@ -29,7 +29,7 @@ export class ListItemService {
   }
 
   async findAll(): Promise<ListItem[]> {
-    throw new Error('Find All not implemented yet!');
+    return await this.listItemRepository.find();
   }
 
   async findOne(id: string): Promise<ListItem> {

@@ -1,23 +1,28 @@
 import { UseGuards, ParseUUIDPipe } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { JwtAuthGuard } from '../auth/guards';
 
 import { List } from './entities';
 import { User } from '../users/entities';
+import { ListItem } from '../list-item/entities';
 
 import { ListsService } from './lists.service';
 import { CreateListInput, UpdateListInput } from './dto';
 import { CurrentUser } from '../auth/decorators';
 import { PaginationArgs, SearchArgs } from '../common/dto';
+import { ListItemService } from '../list-item/list-item.service';
 
 @Resolver(() => List)
 @UseGuards( JwtAuthGuard )
 export class ListsResolver {
 
-  constructor(private readonly listsService: ListsService) {}
+  constructor(
+    private readonly listsService: ListsService,
+    private readonly listItemService: ListItemService,
+  ) {}
 
   @Query(() => [List], {
-    name: 'getLists',
+    name: 'lists',
     description: 'Get all lists'
   })
   async findAll(
@@ -74,5 +79,10 @@ export class ListsResolver {
     @CurrentUser() user: User
   ): Promise<List> {
     return await this.listsService.remove(id, user.id);
+  }
+
+  @ResolveField(() => [ListItem], { name: 'items' })
+  async getListItems( @Parent() list: List, ): Promise<ListItem[]> {
+    return await this.listItemService.findAll();
   }
 }
