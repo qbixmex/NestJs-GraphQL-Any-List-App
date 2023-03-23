@@ -65,12 +65,12 @@ export const SEED_ITEMS = [
   },
   {
     name: "Chicken salad (made with lower calorie mayo)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "meat"
   },
   {
     name: "Tuna salad (made with lower calorie mayo)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "meat"
   },
   {
@@ -95,412 +95,412 @@ export const SEED_ITEMS = [
   },
   {
     name: "Brussels sprouts",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Arugula",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "vegetables"
   },
   {
     name: "Asparagus",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Broccoli",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Bell peppers (green, red, orange, yellow or roasted in a jar)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Cabbage (green or red)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Carrots",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Cauliflower",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Celery",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Corn",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Cucumber",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Eggplant",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Endive",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Garlic",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Ginger",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Green beans (not canned)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Green beans",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Green onion",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Jalapeños",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Kale",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Leeks",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Lettuce (iceberg, romaine)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Onions",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Parsley",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "vegetables"
   },
   {
     name: "Peas (not canned)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Peas",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Radicchio",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Radishes",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Shiitake mushrooms",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Summer squash (yellow)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Turnip",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Turnip greens",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Watercress",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Zucchini",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "vegetables"
   },
   {
     name: "Apples",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Blackberries",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Blueberries",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Cherries",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Fruit cocktail (not packed in syrup)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Grapes",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Lemons",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Limes",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Peaches (not packed in syrup)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Pears",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Pineapple",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Plums",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Raspberries",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Strawberries",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Tangerine",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "fruits"
   },
   {
     name: "Rice: Brown, basmati, or jasmine",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grains"
   },
   {
     name: "Cereals: corn flakes, chex, rice",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grains"
   },
   {
     name: "krispies, puffed rice, puffed",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grains"
   },
   {
     name: "Couscous",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grainsits"
   },
   {
     name: "Oatmeal",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grainsuits"
   },
   {
     name: "Cream of wheat",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grains"
   },
   {
     name: "Grits",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "grains"
   },
   {
     name: "Crackers (unsalted and without added phosphorus)",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "grains"
   },
   {
     name: "Pasta (whole wheat or white)",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "grains"
   },
   {
     name: "English muffins",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "bread"
   },
   {
     name: "Polenta",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "bread"
   },
   {
     name: "Whole wheat breads",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "bread"
   },
   {
     name: "Whole grain breads",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "bread"
   },
   {
     name: "Rye bread",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "bread"
   },
   {
     name: "Tortillas (without added phosphorus)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "bread"
   },
   {
     name: "Sourdough bread",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "bread"
   },
   {
     name: "Parsley",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "dried herbs and spices"
   },
   {
     name: "Basil",
-    quantityUnits: null,
+    quantityUnits: "unit",
     category: "dried herbs and spices"
   },
   {
     name: "Oregano",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Garlic powder (not garlic salt)",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Black pepper",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Red pepper flakes",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Cayenne",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "No salt added chili powder",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Old Bay",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Cumin",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Coriander",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Thyme",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Turmeric",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Cinnamon",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Curry powder",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Chives",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {
     name: "Ginger",
-    quantityUnits: null,
+    quantityUnits: "kg",
     category: "dried herbs and spices"
   },
   {

@@ -3,8 +3,11 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Item } from '../items/entities';
 import { User } from '../users/entities';
+import { Item } from '../items/entities';
+import { List } from '../lists/entities';
+import { ListItem } from '../list-item/entities';
+
 import { UsersService } from '../users/users.service';
 import { ItemsService } from '../items/items.service';
 import { SEED_USERS, SEED_ITEMS } from './data';
@@ -20,6 +23,12 @@ export class SeedService {
 
     @InjectRepository(Item)
     private readonly itemsRepository: Repository<Item>,
+
+    @InjectRepository(List)
+    private readonly listRepository: Repository<List>,
+
+    @InjectRepository(ListItem)
+    private readonly listItemRepository: Repository<ListItem>,
 
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
@@ -52,6 +61,18 @@ export class SeedService {
   }
 
   async deleteDatabase(): Promise<void> {
+    //* List Items
+    await this.listItemRepository.createQueryBuilder()
+      .delete()
+      .where({})
+      .execute();
+
+    //* Lists
+    await this.listRepository.createQueryBuilder()
+      .delete()
+      .where({})
+      .execute();
+
     //* Delete Items
     await this.itemsRepository.createQueryBuilder()
       .delete()
