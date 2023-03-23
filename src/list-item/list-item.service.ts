@@ -66,7 +66,22 @@ export class ListItemService {
   async update(
     updateListItemInput: UpdateListItemInput
   ): Promise<ListItem> {
-    throw new Error('Update not implemented yet!');
+
+    const { id, listId, itemId, ...rest } = updateListItemInput;
+
+    const queryBuilder = this.listItemRepository.createQueryBuilder()
+      .update()
+      .set(rest)
+      .where('id = :id', { id });
+
+    if (listId) queryBuilder.set({ list: { id: listId }});
+    if (itemId) queryBuilder.set({ item: { id: itemId }});
+
+    //* Perform to update list item
+    await queryBuilder.execute();
+
+    return this.findOne(id);
+
   }
 
   async remove(id: string): Promise<ListItem> {

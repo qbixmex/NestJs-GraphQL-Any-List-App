@@ -34,7 +34,10 @@ export class ListItemResolver {
     return await this.listItemService.findOne(id);
   }
 
-  @Mutation(() => ListItem)
+  @Mutation(() => ListItem, {
+    name: 'updateListItem',
+    description: 'Update a single list item with given id'
+  })
   async updateListItem(
     @Args('updateListItemInput') updateListItemInput: UpdateListItemInput
   ): Promise<ListItem> {
