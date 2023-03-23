@@ -10,7 +10,10 @@ import { ListItem } from '../list-item/entities';
 
 import { UsersService } from '../users/users.service';
 import { ItemsService } from '../items/items.service';
-import { SEED_USERS, SEED_ITEMS } from './data';
+import { ListsService } from '../lists/lists.service';
+import { ListItemService } from '../list-item/list-item.service';
+
+import { SEED_USERS, SEED_ITEMS, SEED_LISTS } from './data';
 
 @Injectable()
 export class SeedService {
@@ -37,6 +40,10 @@ export class SeedService {
 
     private readonly itemsService: ItemsService,
 
+    private readonly listService: ListsService,
+
+    private readonly listItemService: ListItemService,
+
   ) {
     this.isProd = this.configService.get('STATE') == 'prod';
   }
@@ -56,6 +63,13 @@ export class SeedService {
 
     //* Create Items
     await this.loadItems(user);
+
+    //* Create Items
+    const list = await this.loadLists(user);
+
+    //* Create listItems
+    const items = await this.itemsService.findAll(user.id, { offset: 0, limit: 10 }, {});
+    await this.loadListItems(list, items);
 
     return true;
   }
@@ -108,6 +122,29 @@ export class SeedService {
 
     await Promise.all(itemsPromises);
 
+  }
+
+  async loadLists( user: User ): Promise<List> {
+
+    const lists = [];
+
+    for (const list of SEED_LISTS) {
+      lists.push(await this.listService.create(list, user));
+    }
+
+    return lists[0];
+
+  }
+
+  async loadListItems(list: List, items: Item[]): Promise<void> {
+    for (const item of items) {
+      this.listItemService.create({
+        quantity: Math.round(Math.random() * 10) + 1,
+        completed: Math.round(Math.random() * 1) === 0 ? false : true,
+        listId: list.id,
+        itemId: item.id
+      })
+    }
   }
 
 }

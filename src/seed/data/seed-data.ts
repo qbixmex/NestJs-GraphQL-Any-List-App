@@ -20,7 +20,13 @@ export const SEED_USERS = [
     roles: ['user'],
     isActive: false
   },
-]
+];
+
+export const SEED_LISTS = [
+  { name: "Supermarket" },
+  { name: "Birthday" },
+  { name: "Meal" }
+];
 
 export const SEED_ITEMS = [
   {
