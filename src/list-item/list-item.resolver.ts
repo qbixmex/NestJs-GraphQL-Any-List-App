@@ -44,7 +44,10 @@ export class ListItemResolver {
     return await this.listItemService.update(updateListItemInput);
   }
 
-  @Mutation(() => ListItem)
+  @Mutation(() => ListItem, {
+    name: 'removeListItem',
+    description: 'Remove list item from id given'
+  })
   async removeListItem(
     @Args('id', { type: () => ID }, ParseUUIDPipe) id: string
   ): Promise<ListItem> {

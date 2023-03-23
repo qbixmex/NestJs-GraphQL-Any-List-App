@@ -85,7 +85,9 @@ export class ListItemService {
   }
 
   async remove(id: string): Promise<ListItem> {
-    throw new Error('Delete not implemented yet!');
+    const listItem = await this.findOne(id);
+    await this.listItemRepository.remove(listItem);
+    return { ...listItem, id };
   }
 
   async listItemsCountByList(listId: string): Promise<number> {
