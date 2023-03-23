@@ -14,19 +14,6 @@ export class ListItemResolver {
 
   constructor(private readonly listItemService: ListItemService) {}
 
-  @Query(() => [ListItem], { name: 'listItems' })
-  async findAll(): Promise<ListItem[]> {
-    // return await this.listItemService.findAll();
-    throw new Error(`Not implemented yet!`);
-  }
-
-  @Query(() => ListItem, { name: 'listItem' })
-  async findOne(
-    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string
-  ): Promise<ListItem> {
-    return await this.listItemService.findOne(id);
-  }
-
   @Mutation(() => ListItem, {
     name: 'createListItem',
     description: 'Create a new List Item'
@@ -35,6 +22,16 @@ export class ListItemResolver {
     @Args('createListItemInput') createListItemInput: CreateListItemInput
   ): Promise<ListItem> {    
     return await this.listItemService.create(createListItemInput);
+  }
+
+  @Query(() => ListItem, {
+    name: 'findOneListItem',
+    description: 'Find one list item with given id',
+  })
+  async findOne(
+    @Args('id', { type: () => ID }, ParseUUIDPipe) id: string
+  ): Promise<ListItem> {
+    return await this.listItemService.findOne(id);
   }
 
   @Mutation(() => ListItem)

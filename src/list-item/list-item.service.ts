@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -56,7 +56,11 @@ export class ListItemService {
   }
 
   async findOne(id: string): Promise<ListItem> {
-    throw new Error('Find One not implemented yet!');
+    const listItem = await this.listItemRepository.findOneBy({ id });
+    if (!listItem) {
+      throw new NotFoundException(`List Item with id: [${id}] not found!`);
+    }
+    return listItem;
   }
 
   async update(
