@@ -45,7 +45,7 @@ export class SeedService {
     private readonly listItemService: ListItemService,
 
   ) {
-    this.isProd = this.configService.get('STATE') == 'prod';
+    this.isProd = this.configService.get('STATE') === 'prod';
   }
 
   async executeSeed(): Promise<boolean> {
